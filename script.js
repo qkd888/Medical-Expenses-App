@@ -78,9 +78,9 @@
      headingCell.colSpan = 4; // Span across all columns
      headingCell.style.textAlign = 'center';
      headingCell.style.fontWeight = 'bold';
-     headingCell.style.fontSize = '18px';
-     headingCell.style.padding = '10px';
-     headingCell.textContent = 'Expense Tracker';
+     headingCell.style.fontSize = '6px';
+     headingCell.style.padding = '2px';
+     headingCell.textContent = 'Medical Expenses Out Of Pocket BK Ward';
 
      // Add the table headers
      const headerRow = pdfTable.insertRow();
@@ -89,9 +89,10 @@
          const headerCell = document.createElement('th');
          headerCell.textContent = headerText;
          headerCell.style.border = '1px solid #000';
-         headerCell.style.padding = '8px';
-         headerCell.style.backgroundColor = '#45484d';
-         headerCell.style.color = '#abb2bf';
+         headerCell.style.fontSize = '6px';
+         headerCell.style.padding = '2px';
+         headerCell.style.backgroundColor = '#FAFAFA';
+         headerCell.style.color = '#0F1B25';
          headerRow.appendChild(headerCell);
      });
 
@@ -102,9 +103,10 @@
              const cell = row.insertCell();
              cell.textContent = value;
              cell.style.border = '1px solid #000';
-             cell.style.padding = '8px';
-             cell.style.backgroundColor = '#33363b';
-             cell.style.color = '#e0e0e0';
+             cell.style.fontSize = '5px';
+             cell.style.padding = '2px';
+             cell.style.backgroundColor = '#FAFAFA';
+             cell.style.color = '#0F1B25';
          });
      });
 
@@ -114,16 +116,18 @@
      totalCell.colSpan = 3; // Span across the first 3 columns
      totalCell.textContent = 'Total';
      totalCell.style.border = '1px solid #000';
-     totalCell.style.padding = '8px';
-     totalCell.style.backgroundColor = '#45484d';
-     totalCell.style.color = '#abb2bf';
+     totalCell.style.fontSize = '6px';
+     totalCell.style.padding = '2px';
+     totalCell.style.backgroundColor = '#FAFAFA';
+     totalCell.style.color = '#0F1B25';
 
      const totalAmountCell = totalRow.insertCell();
      totalAmountCell.textContent = `R ${calculateTotal().toFixed(2)}`;
      totalAmountCell.style.border = '1px solid #000';
-     totalAmountCell.style.padding = '8px';
-     totalAmountCell.style.backgroundColor = '#33363b';
-     totalAmountCell.style.color = '#e0e0e0';
+     totalAmountCell.style.fontSize = '6px';
+     totalAmountCell.style.padding = '2px';
+     totalAmountCell.style.backgroundColor = '#FAFAFA';
+     totalAmountCell.style.color = '#0F1B25';
 
      // Create a temporary container to render the table for PDF
      const tempContainer = document.createElement('div');
@@ -134,7 +138,7 @@
 
      // Convert the table to PDF
      html2canvas(tempContainer, {
-         scale: 2
+         scale: 5
      }).then(canvas => {
          const {
              jsPDF
@@ -143,7 +147,7 @@
          const imgData = canvas.toDataURL('image/png');
          const pageWidth = doc.internal.pageSize.getWidth();
          const pageHeight = doc.internal.pageSize.getHeight();
-         const margin = 10; // 10mm margins
+         const margin = 3; // 10mm margins
          const maxWidth = pageWidth - 2 * margin;
          const maxHeight = pageHeight - 2 * margin;
 
@@ -159,8 +163,7 @@
          }
 
          // Add image to PDF
-         doc.addImage(imgData, 'PNG', margin, margin, imgWidth, imgHeight);
-
+         doc.addImage(imgData, 'PNG', margin, margin, imgWidth, imgHeight);;
 
          // Save the PDF and show success alert
          doc.save('Medical Expenses Out Of Pocket BK Ward.pdf');
